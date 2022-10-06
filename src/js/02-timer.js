@@ -42,10 +42,6 @@ const timer = {
     minutes: document.querySelector('[data-minutes]'),
     seconds: document.querySelector('[data-seconds]'),
   },
-  notifyOptions: {
-    backOverlay: true,
-    closeButton: true,
-  },
   start(deadline) {
     this.intervalId = setInterval(() => {
       const deltaTime = deadline.getTime() - Date.now();
