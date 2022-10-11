@@ -4,6 +4,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 
 const startRef = document.querySelector('[data-start]');
 startRef.disabled = true;
+const inputRef = document.querySelector('#datetime-picker');
 let timeDeadline = null;
 
 const options = {
@@ -32,6 +33,8 @@ startRef.addEventListener('click', onStartClick);
 
 function onStartClick() {
   timer.start(timeDeadline);
+  startRef.disabled = true;
+  inputRef.disabled = true;
 }
 
 const timer = {
@@ -45,6 +48,9 @@ const timer = {
   start(deadline) {
     this.intervalId = setInterval(() => {
       const deltaTime = deadline.getTime() - Date.now();
+      if (deltaTime < 1000) {
+        clearInterval(this.intervalId);
+      }
       const data = this.convertMs(deltaTime);
       Object.entries(data).forEach(([name, value]) => {
         this.refs[name].textContent = this.addLeadingZero(value);
